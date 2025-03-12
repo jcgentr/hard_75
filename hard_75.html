@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>75 Hard Challenge</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💪</text></svg>"
+    />
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+        background-color: #1a1a1a; /* Dark background */
+        color: #e0e0e0; /* Light text */
+        margin: 0; /* Remove default margins */
+        padding: 20px; /* Add some padding */
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center content horizontally */
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      table {
+        width: 80%; /* Adjust table width */
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        text-align: center;
+        border: 1px solid #333; /* Darker border */
+        padding: 10px;
+      }
+
+      th {
+        background-color: #282828; /* Slightly lighter header background */
+      }
+
+      thead {
+        position: sticky;
+        top: 0;
+        background-color: #282828; /* Ensure header remains visible */
+        z-index: 10; /* Make sure it stays above other content */
+      }
+
+      input[type="checkbox"] {
+        width: 30px; /* Adjust size */
+        height: 20px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border: 2px solid #555; /* Medium gray border */
+        border-radius: 3px;
+        background-color: #282828; /* Darker input background */
+        color: #e0e0e0; /* Light text color for input */
+        cursor: pointer;
+        position: relative;
+      }
+
+      input[type="number"] {
+        width: 50px; /* Adjust size */
+        height: 20px;
+        padding-left: 4px;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border: 2px solid #555; /* Medium gray border */
+        border-radius: 3px;
+        background-color: #282828; /* Darker input background */
+        color: #e0e0e0; /* Light text color for input */
+        cursor: pointer;
+      }
+
+      input[type="number"]:hover {
+        border-color: #66cdaa; /* Light green border on hover */
+        box-shadow: 0 0 5px rgba(102, 205, 170, 0.6); /* Soft glow */
+        transition: all 0.2s ease-in-out;
+      }
+
+      input[type="checkbox"]:checked {
+        background-color: #66cdaa; /* Seafoam green when checked */
+        border-color: #49967c;
+      }
+
+      input[type="checkbox"]:hover {
+        border-color: #66cdaa; /* Light green border on hover */
+        box-shadow: 0 0 5px rgba(102, 205, 170, 0.6); /* Soft glow */
+        transition: all 0.2s ease-in-out;
+      }
+
+      input[type="checkbox"]:checked::before {
+        content: "\2714";
+        color: #2b5849;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+      }
+
+      button {
+        /* Example button style */
+        background-color: #66cdaa;
+        color: #1a1a1a;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 20px; /* Add some margin */
+      }
+
+      button:hover {
+        background-color: #8fbc8f; /* Darker sea green on hover */
+      }
+
+      aside {
+        width: 75%;
+      }
+      aside > table {
+        margin: 2rem auto;
+      }
+      aside > table tr td {
+        padding: 10px; /* Add padding to table cells */
+        text-align: left; /* Align text to the left */
+      }
+
+      /* Make tables scrollable on small screens */
+      @media (max-width: 768px) {
+        table {
+          width: 100%; /* Full width on smaller screens */
+          display: block;
+          overflow-x: auto; /* Allow horizontal scrolling */
+          white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        aside {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>75 Hard Challenge</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Fitness</th>
+            <th>Water</th>
+            <th>Reading</th>
+            <th>Food</th>
+            <th>Progress</th>
+            <th>Weight</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <aside>
+        <table>
+          <tbody>
+            <tr>
+              <td>Fitness</td>
+              <td>2x 30 min workouts (1 outside and 1 inside)</td>
+            </tr>
+            <tr>
+              <td>Water</td>
+              <td>drink 1 gallon of water (128 ounces or 3 owala bottles)</td>
+            </tr>
+            <tr>
+              <td>Reading</td>
+              <td>2x 10 pages of reading (1 nonfiction and 1 fiction)</td>
+            </tr>
+            <tr>
+              <td>Food</td>
+              <td>whole foods and limit refined carbs and sugar intake</td>
+            </tr>
+            <tr>
+              <td>Progress</td>
+              <td>take a daily progress photo</td>
+            </tr>
+            <tr>
+              <td>Weight</td>
+              <td>track with scale (lbs)</td>
+            </tr>
+          </tbody>
+        </table>
+      </aside>
+    </main>
+
+    <script>
+      const tableBody = document.querySelector("tbody");
+      const appState = getStateFromLocalStorage();
+      const tasks = [
+        "fitness",
+        "water",
+        "reading",
+        "food",
+        "progress",
+        "weight",
+      ];
+      const days = 75;
+
+      for (let dayIndex = 1; dayIndex <= days; dayIndex++) {
+        const rowData = appState[dayIndex - 1];
+        const row = tableBody.insertRow();
+        row.dataset.dayIndex = dayIndex; // Store dayIndex in a data attribute
+        const dayCell = row.insertCell();
+        dayCell.textContent = `Day ${dayIndex}`;
+
+        for (let taskIndex = 0; taskIndex < tasks.length - 1; taskIndex++) {
+          const taskName = tasks[taskIndex];
+          const cell = row.insertCell();
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+          checkbox.id = `day${dayIndex}-${taskName}`;
+          checkbox.name = `day${dayIndex}-${taskName}`;
+          if (rowData) {
+            checkbox.checked = rowData[taskName] ?? false;
+          }
+          cell.appendChild(checkbox);
+        }
+
+        // weight input
+        const cell = row.insertCell();
+        const weightInput = document.createElement("input");
+        weightInput.type = "number";
+        weightInput.id = `day${dayIndex}-${tasks[tasks.length - 1]}`;
+        weightInput.name = `day${dayIndex}-${tasks[tasks.length - 1]}`;
+        if (rowData) {
+          weightInput.value = rowData[tasks[tasks.length - 1]] ?? "";
+        }
+        cell.appendChild(weightInput);
+      }
+
+      function getStateFromLocalStorage() {
+        const state = JSON.parse(localStorage.getItem("75HardState"));
+        return state ?? [];
+      }
+
+      function saveToLocalStorage() {
+        console.log("saving");
+        const newState = [];
+        const rows = tableBody.querySelectorAll("tr");
+        console.log(rows.length);
+        rows.forEach((row) => {
+          const dayIndex = row.dataset.dayIndex; // Retrieve dayIndex
+          if (!dayIndex) return; // Skip header row (no data-dayIndex)
+
+          const rowData = {};
+          tasks.forEach((task) => {
+            const input = row.querySelector(`#day${dayIndex}-${task}`);
+            console.log(input);
+            if (input) {
+              if (input.type === "checkbox") {
+                rowData[task] = input.checked;
+              } else if (input.type === "number") {
+                rowData[task] = Number(input.value) || 0; // Convert to number, handle empty
+              }
+            }
+          });
+          newState.push(rowData);
+        });
+
+        localStorage.setItem("75HardState", JSON.stringify(newState));
+      }
+
+      tableBody.addEventListener("change", saveToLocalStorage);
+    </script>
+  </body>
+</html>
